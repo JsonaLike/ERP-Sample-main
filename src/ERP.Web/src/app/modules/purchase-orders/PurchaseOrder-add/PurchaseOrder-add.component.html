@@ -1,0 +1,232 @@
+<p-toolbar styleClass="mb-2">
+    <div class="p-toolbar-group-left">
+        <div class="text-3xl">Add Purchase Orders</div>
+    </div>
+    <div class="p-toolbar-group-right">
+        <p-button label="Back To List" icon="fa fa-reply" (click)="goToList()"></p-button>
+    </div>
+</p-toolbar>
+<p-toast key="toast1"></p-toast>
+<p-card styleClass="mb-2">
+    <form #PurchaseOrderForm="ngForm"  (ngSubmit)="PurchaseOrderForm.form.valid && onSubmit()" >
+        <div class="formgrid grid">
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">PurchaseOrderNumber</label>
+                    <div class="col-12 md:col-8">
+                        <input type="text" name="txtPurchaseOrderNo" class="inputfield w-full" maxlength="20" required
+                            pInputText [(ngModel)]="PurchaseOrderNumber" #txtPurchaseOrderNumber="ngModel">
+                        <div class="text-danger"
+                            *ngIf="txtPurchaseOrderNumber.invalid && (txtPurchaseOrderNumber.dirty || txtPurchaseOrderNumber.touched || PurchaseOrderForm.submitted)">
+                            <div *ngIf="txtPurchaseOrderNumber.errors?.['required']">
+                                PurchaseOrder Name is required.
+                            </div>
+                            <div *ngIf="txtPurchaseOrderNumber.errors?.['maxlength']">
+                                PurchaseOrder Code should not be more than 10 characters long.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">PurchaseOrderDate</label>
+                    <div class="col-12 md:col-8">
+                        <p-calendar [(ngModel)]="date" name="calender" #txtPurchaseOrderDate="ngModel"></p-calendar>
+                        <div class="text-danger"
+                            *ngIf="txtPurchaseOrderDate.invalid && (txtPurchaseOrderDate.dirty || txtPurchaseOrderDate.touched || PurchaseOrderForm.submitted)">
+                            <div *ngIf="txtPurchaseOrderDate.errors?.['required']">
+                                PurchaseOrderDate is required.
+                            </div>
+                            <div *ngIf="txtPurchaseOrderDate.errors?.['maxlength']">
+                                PurchaseOrderDate should not be more than 10 characters long.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Vendor</label>
+                    <div class="col-12 md:col-8">
+                        <p-dropdown [options]="Vendors" optionLabel="vendorName" filterBy="vendorName" [(ngModel)]="SelectedVendor" [filter]="true" name="vendorselect" class="width-100"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">ShippingAddress</label>
+                    <div class="col-12 md:col-8">
+                        <input name="txtDescription" pInputText  class="inputfield w-full" [(ngModel)]="ShippingAddress" #txtDescription="ngModel"/>
+                        <div class="text-danger"
+                            *ngIf="(txtDescription.value == '' || txtDescription.value == null || txtDescription.invalid) && (txtDescription.dirty || txtDescription.touched || PurchaseOrderForm.submitted)">
+                            <div>
+                                ShippingAddress is required.
+                            </div>
+                            <div *ngIf="txtDescription.errors?.['maxlength']">
+                                First Name should not be more than 20 characters long.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Status</label>
+                    <div class="col-12 md:col-8">
+                
+            <p-dropdown [options]="POS | keyvalue" name="Items" optionLabel="value" [(ngModel)]="SelectedStatus" >
+
+            </p-dropdown>
+                </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Notes</label>
+                    <div class="col-12 md:col-8">
+                <textarea type="text" pInputTextarea name="Notes" class="inputfield w-full" maxlength="20" required [(ngModel)]="Notes" #NotesModel="ngModel"></textarea>
+                <div class="text-danger"
+                *ngIf="(NotesModel.value == 0 || NotesModel.invalid) && (NotesModel.dirty || NotesModel.touched || PurchaseOrderForm.submitted)">
+                </div>
+                </div>
+                </div>
+            </div>
+            <!--<div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Inventory Value</label>
+                    <div class="col-12 md:col-8">
+                <input type="number" step="0.01" pInputText name="numQuantity" class="inputfield w-full" maxlength="20" required [(ngModel)]="InventoryValue" #numQuantity="ngModel">
+                <div class="text-danger"
+                *ngIf="(numQuantity.value == 0 || numQuantity.invalid) && (numQuantity.dirty || numQuantity.touched || PurchaseOrderForm.submitted)">
+                <div>
+                Inventory Value is required.
+                </div>
+                <div *ngIf="numQuantity.errors?.['maxlength']">
+                Inventory Value should not be more than 20 characters long.
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>--!>
+           <!--<div class="col-12 md:col-6">
+
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Discounted</label>
+                    <div class="col-12 md:col-8">
+                <input type="number" pInputText name="Discounted" class="inputfield w-full" maxlength="20" required [(ngModel)]="Discounted" #numQuantity="ngModel">
+                <div class="text-danger"
+                *ngIf="(Discounted.value == 0 || Discounted.invalid) && (Discounted.dirty || Discounted.touched || PurchaseOrderForm.submitted)">
+                <div>
+                Inventory Value is required.
+                </div>
+                <div *ngIf="Discounted  .errors?.['maxlength']">
+                Inventory Value should not be more than 20 characters long.
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+            (click)="onClearClick(PurchaseOrderForm)"
+            !-->
+            
+
+            <div class="col-12">
+                <p-button label="Save" type="submit" class="mr-2"></p-button>
+                <p-button label="Clear" styleClass="p-button-secondary" ></p-button>
+            </div>
+        </div>
+      
+    </form>
+</p-card>
+<p-card>
+<p-tabView>
+    <p-tabPanel header="Items">
+        <!--
+<p-table class="test" [value]="SelectedPurchaseOrderItems" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}" >
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:20%">Item</th>
+            <th style="width:20%">Price</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+        <tr>
+            <td [pEditableColumn]="SelectedPurchaseOrderItems[ri].name" >
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <p-dropdown [options]="Items" optionLabel="name" name="dropdown3" (onChange)="onDropdownChange($event)" appendTo="body" [style]="{'width':'100%'}"></p-dropdown>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{SelectedPurchaseOrderItems[ri].name}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td [pEditableColumn]="SelectedPurchaseOrderItems[ri].price">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="number" name="inputtest" (ngModelChange)="onPriceChange($event)">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        <span class="" >
+                        
+                        </span>
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+-->
+
+<table style="border: 10px;" class="testing" #table>
+        <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        </tr>
+        <tr id="POI{{i}}" *ngFor="let row of SelectedPurchaseOrderItems; let i = index">
+            <td style="min-width:400px">
+                <p-dropdown [options]="Items" optionLabel="name" name="dropdown3" class="dropdownp" 
+                [(ngModel)]="SelectedPurchaseOrderItems[i]" [filter]="true" filterBy="name" (onChange)="onDropdownChange($event,i)" appendTo="body" [style]="{'width':'%'}" placeholder="Select An Item">
+            </p-dropdown>
+            </td>
+            <td>
+                <input *ngIf="SelectedPurchaseOrderItems[i]?.price; else emptyPrice" pInputText type="number" name="inputtest" class="Price"
+                       [(ngModel)]="SelectedPurchaseOrderItems[i]!.price" (ngModelChange)="onPriceChange($event,i,SelectedPurchaseOrderItems[i])">
+                       <ng-template #emptyPrice>
+                            <input pInputText type="number" name="inputtest" class="Price">
+                    </ng-template>
+            </td>
+            <td>
+                <input *ngIf="SelectedPurchaseOrderItems[i]?.quantity; else emptyQuantity" pInputText type="number" name="inputtest" class="Price"
+                       [(ngModel)]="SelectedPurchaseOrderItems[i]!.quantity" (ngModelChange)="onPriceChange($event,i,SelectedPurchaseOrderItems[i])">
+                       <ng-template #emptyQuantity>
+                        <input pInputText type="number" name="inputtest" class="Price">
+                </ng-template>
+            </td>
+            
+        <tr *ngIf="SelectedPurchaseOrderItems.length!=Items.length">
+            <td colspan="3"><button type="button" name="additem" (click)="AddNewItem()">Add new Item</button></td>
+        </tr>
+    </table>
+        </p-tabPanel>
+    </p-tabView>
+</p-card>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>

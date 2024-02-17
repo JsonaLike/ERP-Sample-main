@@ -1,0 +1,52 @@
+<p-toolbar styleClass="mb-2">
+    <div class="p-toolbar-group-left">
+        <div class="text-3xl">Inventory List</div>
+    </div>
+    <div class="p-toolbar-group-right">
+        <span class="p-input-icon-left ">
+            <i class="fa fa-search"></i>
+            <input type="text" pInputText placeholder="Search" [(ngModel)]="searchKeyword" class="mr-2"
+                (change)="onChangeSearchKeyword()" (keyup)="onChangeSearchKeyword()" />
+        </span>
+        <p-button icon="fa fa-times" styleClass="p-button-secondary mr-2" (click)="clearSearch()"></p-button>
+        <i class="fa fa-circle-info mr-2"
+            pTooltip="Search Employee using Employee Code, First Name, Last Name, Middle Name, Office Email Id, or Office Contact No."></i>
+        <p-button label="New" icon="fa fa-plus" *ngIf="canAdd" (click)="goToAdd()"></p-button>
+    </div>
+</p-toolbar>
+
+<p-card>
+    <p-table [value]="inventoryItems" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Inventory Value</th>
+                <th>Created By</th>
+                <th>Options</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-employee>
+            <tr>
+                <td>{{employee.name}}</td>
+                <td>{{employee.description.slice(0,290)}}</td>
+                <td>{{employee.price | number:'.2-2'}}</td>
+                <td>{{employee.quantity}}</td>
+                <td>{{employee.inventoryValue | number:'.2-2'}}</td>
+                <td>{{employee.createdByEmp.firstName}} {{employee.createdByEmp.lastName}}</td>
+                <td>
+                    <p-button icon="fa fa-eye" styleClass="p-button-success mr-2"
+                        [routerLink]="['/app/inventory/view/',employee.id]">
+                    </p-button>
+                    <p-button icon="fa fa-pencil" styleClass="p-button-warning" *ngIf="canEdit"
+                        [routerLink]="['/app/inventory/edit/',employee.id]">
+                    </p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-paginator [rows]="10" [totalRecords]="totalRecords" (onPageChange)="search($event)"></p-paginator>
+</p-card>

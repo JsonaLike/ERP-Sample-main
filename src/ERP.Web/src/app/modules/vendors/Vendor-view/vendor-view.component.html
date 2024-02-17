@@ -1,0 +1,109 @@
+<p-toolbar styleClass="mb-2">
+    <div class="p-toolbar-group-left">
+        <div class="text-3xl">Vendor View</div>
+    </div>
+    <div class="p-toolbar-group-right">
+        <p-button label="Back To List" icon="fa fa-reply" (click)="goToList()"></p-button>
+    </div>
+</p-toolbar>
+
+<p-card>
+    <form #employeeForm="ngForm" (ngSubmit)="employeeForm.form.valid && onSubmit()" novalidate>
+        <div class="formgrid grid">
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Vendor Name</label>
+                    {{vendorName}}
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Vendor Address</label>
+                    <span class="">
+                    {{vendorAddress}}
+                    </span>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Vendor City</label>
+                    <div class="col-12 md:col-8">
+                    {{City}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Vendor Zip Code</label>
+                    {{ZipCode}}
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Vendor Country</label>
+                    <div class="col-12 md:col-8">
+{{Country}}
+
+</div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Vendor Phone</label>
+                    {{Phone}}
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Contact Name</label>
+                    <div class="col-12 md:col-8">
+{{ContactName}}
+
+</div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Contact Notes</label>
+                    {{ContactNotes}}
+                </div>
+            </div>
+            <!--<div class="col-12 md:col-6">
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Inventory Value</label>
+                    <div class="col-12 md:col-8">
+                <input type="number" step="0.01" pInputText name="numQuantity" class="inputfield w-full" maxlength="20" required [(ngModel)]="InventoryValue" #numQuantity="ngModel">
+                <div class="text-danger"
+                *ngIf="(numQuantity.value == 0 || numQuantity.invalid) && (numQuantity.dirty || numQuantity.touched || employeeForm.submitted)">
+                <div>
+                Inventory Value is required.
+                </div>
+                <div *ngIf="numQuantity.errors?.['maxlength']">
+                Inventory Value should not be more than 20 characters long.
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>--!>
+           <!--<div class="col-12 md:col-6">
+
+                <div class="field grid">
+                    <label class="pr-2 col-12 md:col-4 required">Discounted</label>
+                    <div class="col-12 md:col-8">
+                <input type="number" pInputText name="Discounted" class="inputfield w-full" maxlength="20" required [(ngModel)]="Discounted" #numQuantity="ngModel">
+                <div class="text-danger"
+                *ngIf="(Discounted.value == 0 || Discounted.invalid) && (Discounted.dirty || Discounted.touched || employeeForm.submitted)">
+                <div>
+                Inventory Value is required.
+                </div>
+                <div *ngIf="Discounted  .errors?.['maxlength']">
+                Inventory Value should not be more than 20 characters long.
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>!-->
+         
+        </div>
+    </form>
+</p-card>
