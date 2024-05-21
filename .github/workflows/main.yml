@@ -20,7 +20,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish src/ERP.WebApi/ERP.WebApi.csproj --configuration Release --framework netcoreapp8.0.3 --output ./publish --runtime win-x86 --self-contained true -p:PublishTrimmed=false -p:PublishSingleFile=false
+        run: dotnet publish src/ERP.WebApi/ERP.WebApi.csproj --configuration Release --framework netcoreapp7.0.0 --output ./publish --runtime win-x86 --self-contained true -p:PublishTrimmed=false -p:PublishSingleFile=false
 
       - name: Test with .NET
         run: dotnet test
